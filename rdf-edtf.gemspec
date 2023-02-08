@@ -2,28 +2,27 @@
 $:.push File.expand_path('../lib', __FILE__)
 require 'rdf/edtf/version'
 
-Gem::Specification.new do |s|
-  s.name        = "rdf-edtf"
-  s.version     = RDF::EDTF::VERSION
-  s.platform    = Gem::Platform::RUBY
-  s.authors     = ['Tom Johnson']
-  s.homepage    = 'https://github.com/dpla/rdf-edtf'
-  s.email       = 'tom@dp.la'
-  s.summary     = %q{An `RDF::Literal` implementation around Extended Date Time Format.}
-  s.description = %q{Supports serializing and parsing EDTF (all levels) as typed literals in RDF.}
-  s.license     = 'UNLICENSE'
-  s.required_ruby_version     = '>= 2.0.0'
+Gem::Specification.new do |spec|
+  spec.name = "rdf-edtf"
+  spec.version = RDF::EDTF::VERSION
+  spec.platform = Gem::Platform::RUBY
+  spec.authors = ["Project Surfliner"]
+  spec.homepage = "https://github.com/marrus-sh/rdf-edtf" # temporary
+  spec.summary = %q{An `RDF::Literal` implementation around Extended Date Time Format.}
+  spec.description = %q{Supports serializing and parsing EDTF (all levels) as typed literals in RDF.}
+  spec.license = "MIT"
 
-  s.add_dependency('rdf', '~> 1.1')
-  s.add_dependency('edtf', '~>2.2.0')
+  spec.files         = `git ls-files`.split("\n")
+  spec.test_files    = `git ls-files -- {spec}/*`.split("\n")
+  spec.extra_rdoc_files = ["LICENSE", "README.md", "CHANGELOG.md"]
 
-  s.add_development_dependency('pry')
-  s.add_development_dependency('rspec')
-  s.add_development_dependency('rdf-spec')
+  spec.required_ruby_version = ">= 2.7"
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {spec}/*`.split("\n")
+  spec.add_dependency "rdf", "~> 1.1"
+  spec.add_dependency "edtf", "~> 2.2.0"
 
-  s.extra_rdoc_files = ['UNLICENSE',
-                        'README.md']
+  spec.add_development_dependency "debug"
+  spec.add_development_dependency "rdf-spec"
+  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "standard"
 end
