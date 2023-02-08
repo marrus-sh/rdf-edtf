@@ -1,6 +1,5 @@
-# -*- encoding: utf-8 -*-
-$:.push File.expand_path('../lib', __FILE__)
-require 'rdf/edtf/version'
+$:.push File.expand_path("../lib", __FILE__)
+require "rdf/edtf/version"
 
 Gem::Specification.new do |spec|
   spec.name = "rdf-edtf"
@@ -8,12 +7,11 @@ Gem::Specification.new do |spec|
   spec.platform = Gem::Platform::RUBY
   spec.authors = ["Project Surfliner"]
   spec.homepage = "https://github.com/marrus-sh/rdf-edtf" # temporary
-  spec.summary = %q{An `RDF::Literal` implementation around Extended Date Time Format.}
-  spec.description = %q{Supports serializing and parsing EDTF (all levels) as typed literals in RDF.}
+  spec.summary = "An `RDF::Literal` implementation around Extended Date Time Format."
+  spec.description = "Supports serializing and parsing EDTF (all levels) as typed literals in RDF."
   spec.license = "MIT"
 
-  spec.files         = `git ls-files`.split("\n")
-  spec.test_files    = `git ls-files -- {spec}/*`.split("\n")
+  spec.files = `git ls-files`.split("\n")
   spec.extra_rdoc_files = ["LICENSE", "README.md", "CHANGELOG.md"]
 
   spec.required_ruby_version = ">= 2.7"

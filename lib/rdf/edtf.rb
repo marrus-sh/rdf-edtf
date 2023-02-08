@@ -1,4 +1,4 @@
-require 'rdf'
+require "rdf"
 
 module RDF
   ##
@@ -16,6 +16,6 @@ module RDF
   #    Specification
   # @see http://id.loc.gov/datatypes/edtf.html
   module EDTF
-    autoload :Literal, 'rdf/edtf/literal'
+    autoload :Literal, "rdf/edtf/literal"
   end
 end
