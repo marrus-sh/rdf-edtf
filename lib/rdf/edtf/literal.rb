@@ -145,15 +145,57 @@ module RDF::EDTF
     ##
     # Initializes an RDF::Literal with EDTF datatype.
     #
-    # Casts lexical values with the correct datatype to EDTF, if they are
-    # parsable. Otherwise retains their original value as an `#invalid?`
-    # literal.
-    #
     # @see RDF::Literal
-    def initialize(value, options = {})
-      value = EDTF.parse(value) || value
-      @string = value.edtf if value.respond_to? :edtf
-      super
+    def initialize(value, datatype: nil, lexical: nil, **options)
+      @datatype = RDF::URI(datatype || self.class.const_get(:DATATYPE))
+      @object = begin
+        EDTF.parse!(value.respond_to?(:edtf) ? value.edtf : value)
+      rescue
+        value
+      end
+      if !lexical.nil?
+        # A lexical value was directly provided.
+        @string = lexical.to_s.freeze
+      elsif value.is_a?(String)
+        # No lexical value was explicitly provided, but the given value is a
+        # +String+; it is used directly as the lexical value.
+        #
+        # This does **not** coerce the string. Use +#canonicalize!+ to ensure a
+        # canonical EDTF form.
+        @string = value.dup.freeze
+      elsif @object.respond_to?(:edtf)
+        # No lexical value was explicitly provided, but the computed object
+        # responds to +:edtf+; the return value is used as the lexical value.
+        @string = object.edtf.to_s.freeze
+      else # standard:disable Style/EmptyElse
+        # +@string+ is not defined if none of the above cases hold.
+        #
+        # This is intentional; the implementation of +RDF::Literal+ checks to
+        # see if +@string+ has been defined in several places, with specific
+        # fallbacks if it is not.
+      end
+    end
+
+    ##
+    # Converts this literal into its canonical lexical representation.
+    #
+    # If the +value+ of this literal is not an EDTF date, this method does
+    # nothing.
+    #
+    # @return [RDF::Literal] `self`
+    def canonicalize!
+      @string = @object.respond_to?(:edtf) ? @object.edtf : @string
+      self
+    end
+
+    ##
+    # Returns the string representation of the literal (its EDTF string, if
+    # defined, or the string value of +#object+ otherwise).
+    #
+    # Following the behaviour of +RDF::Literal+, this does not necessarily match
+    # the actual lexical value (use +#value+ for that).
+    def to_s
+      (@object.respond_to?(:edtf) ? @object.edtf : @object.to_s).freeze
     end
   end
 end
