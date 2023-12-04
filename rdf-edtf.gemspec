@@ -16,11 +16,11 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ">= 2.7"
 
-  spec.add_dependency "rdf", "~> 3.2.9"
+  spec.add_dependency "rdf", "~> 3.3.0"
   spec.add_dependency "edtf", "~> 3.1.1"
 
   spec.add_development_dependency "debug"
-  spec.add_development_dependency "rdf-spec", "~> 3.2.0"
+  spec.add_development_dependency "rdf-spec", "~> 3.3.0"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "standard"
 end
